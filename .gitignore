@@ -229,3 +229,6 @@ vision_videos/
 *.wmv
 *.mkv
 *.flv
+
+# Other
+scripts/server-config.json

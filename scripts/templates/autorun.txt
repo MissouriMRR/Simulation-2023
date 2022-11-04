@@ -1,7 +1,5 @@
 @ECHO OFF
 
-REM this is a modified version of PX4's run-console.bat that automatically starts PX4
-
 PUSHD %~dp0
 CALL toolchain\scripts\setup-environment.bat x
 POPD
