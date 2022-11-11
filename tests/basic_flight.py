@@ -1,9 +1,19 @@
+'''
+This is a basic flight test to ensure you can connect to the drone
+and send it commands. It should fly up 20 and hover until connection 
+to the drone is broken.
+'''
+
 import asyncio
 from mavsdk import System
 
+
+_PORT: int = 14030
+
+
 async def run():
     drone = System(mavsdk_server_address="localhost")
-    await drone.connect(system_address="udp://:14030")
+    await drone.connect(system_address=f"udp://:{_PORT}")
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
@@ -35,10 +45,7 @@ async def run():
     flying_alt = absolute_altitude + 20.0
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(lat, long, flying_alt, 0)
-
-    while True:
-        print("Staying connected, press Ctrl-C to exit")
-        await asyncio.sleep(1)
+            
 
 if __name__ == "__main__":
     loop = asyncio.new_event_loop()
