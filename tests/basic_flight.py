@@ -12,7 +12,7 @@ _PORT: int = 14030
 
 
 async def run():
-    drone = System(mavsdk_server_address="localhost")
+    drone: System = System(mavsdk_server_address="localhost")
     await drone.connect(system_address=f"udp://:{_PORT}")
 
     print("Waiting for drone to connect...")
@@ -42,11 +42,11 @@ async def run():
 
     await asyncio.sleep(1)
     # To fly drone 20m above the ground plane
-    flying_alt = absolute_altitude + 20.0
+    flying_alt: float = absolute_altitude + 20.0
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(lat, long, flying_alt, 0)
             
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
+    loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
     loop.run_until_complete(run())

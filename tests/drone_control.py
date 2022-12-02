@@ -24,7 +24,7 @@ _PORT: int = 14030
 
 
 async def run():
-    drone = System(mavsdk_server_address="localhost")
+    drone: System = System(mavsdk_server_address="localhost")
     await drone.connect(system_address=f"udp://:{_PORT}")
 
     print("Waiting for drone to connect...")
@@ -38,6 +38,10 @@ async def run():
         if health.is_global_position_ok and health.is_home_position_ok:
             print("-- Global position state is good enough for flying.")
             break
+
+    absolute_altitude: float
+    long: float
+    lat: float
 
     print("Fetching amsl altitude at home location....")
     async for terrain_info in drone.telemetry.home():
@@ -63,7 +67,7 @@ async def run():
     
 
     while True:
-        command = input("Give instructions: ").lower()
+        command: str = input("Give instructions: ").lower()
         await asyncio.sleep(1)
 
         if command == 'die':
@@ -89,5 +93,5 @@ async def run():
     
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
+    loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
     loop.run_until_complete(run())

@@ -103,4 +103,4 @@ Invoke-Expression "Start-Process $download_folder\$px4_installer_name -Wait"
 
 Write-Output "" "Everything is downloaded!"
 
-Write-Output "" "You will also need Unreal Engine 4.27. Download the Epic Games launches and get Unreal Engine." "Note: you must get version 4.27 --- Unreal Engine 5 does not work with AirSim"
+Write-Output "" "You will also need Unreal Engine 4.27. Download the Epic Games Launcher and get Unreal Engine." "Note: you must get version 4.27 --- Unreal Engine 5 does not work with AirSim"
