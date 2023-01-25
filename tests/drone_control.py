@@ -18,6 +18,9 @@ and he up command 5 times.
 
 import asyncio
 from mavsdk import System
+import airsim
+import os
+import numpy as np
 
 
 _PORT: int = 14030
@@ -25,6 +28,8 @@ _PORT: int = 14030
 
 async def run():
     drone: System = System(mavsdk_server_address="localhost")
+    client = airsim.MultirotorClient()
+
     await drone.connect(system_address=f"udp://:{_PORT}")
 
     print("Waiting for drone to connect...")
@@ -88,6 +93,22 @@ async def run():
                     flying_alt += 5
                 case 'd':
                     flying_alt -= 5
+                case 'p':
+                    responses = client.simGetImages([
+                        airsim.ImageRequest("3", airsim.ImageType.Scene, False, False),
+                    ])
+
+                    response = responses[0]
+
+
+                    # get numpy array
+                    img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) 
+
+                    # reshape array to 4 channel image array H X W X 4
+                    img_rgb = img1d.reshape(response.height, response.width, 3)
+
+                    # write to png 
+                    airsim.write_png(os.path.normpath("test" + '.png'), img_rgb) 
                 
         await drone.action.goto_location(lat, long, flying_alt, 0)
     
