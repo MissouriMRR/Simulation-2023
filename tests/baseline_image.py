@@ -1,14 +1,14 @@
 import os
 import numpy as np
 import airsim
-
+import cv2 as cv
 
 if __name__ == "__main__":
     client = airsim.MultirotorClient()
     client.confirmConnection()
 
     responses = client.simGetImages([
-        airsim.ImageRequest("3", airsim.ImageType.Scene, False, False),
+        airsim.ImageRequest("down", airsim.ImageType.Scene, False, False),
     ])
 
     response = responses[0]
@@ -20,5 +20,6 @@ if __name__ == "__main__":
     # reshape array to 4 channel image array H X W X 4
     img_rgb = img1d.reshape(response.height, response.width, 3)
 
-    # write to png 
-    airsim.write_png(os.path.normpath("test" + '.png'), img_rgb) 
+    # show img 
+    cv.imshow("Image", img_rgb)
+    cv.waitKey(0)

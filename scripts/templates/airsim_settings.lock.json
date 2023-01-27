@@ -1,0 +1,33 @@
+{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "Vehicles": {
+        "PX4": {
+            "VehicleType": "PX4Multirotor",
+            "UseSerial": false,
+            "UseTcp": true,
+            "TcpPort": 4560,
+            "ControlPort": 14580,
+            "params": {
+                "NAV_RCL_ACT": 0,
+                "NAV_DLL_ACT": 0,
+                "LPE_LAT": 47.641468,
+                "LPE_LON": -122.140165,
+                "COM_OBL_ACT": 1
+            },
+            "Cameras" : {
+                "down": {
+                    "CaptureSettings" : [
+                        {
+                            "ImageType" : 0,
+                            "Width" : 1920,
+                            "Height" : 1080
+                        }
+                    ],
+                    "X": 0.00, "Y": 0.00, "Z": 0.00,
+                    "Pitch": 270.0, "Roll": 0.0, "Yaw": 0.0
+                }
+            }
+        }
+    }
+}
