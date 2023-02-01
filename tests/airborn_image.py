@@ -1,8 +1,7 @@
 import airsim
-import numpy as np
 import asyncio
-import os
 from mavsdk import System
+import utils
 
 import cv2 as cv
 
@@ -45,17 +44,7 @@ async def run():
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(lat, long, flying_alt, 0)
 
-    responses = client.simGetImages([
-        airsim.ImageRequest("down", airsim.ImageType.Scene, False, False),
-    ])
-
-    response = responses[0]
-
-    # get numpy array
-    img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) 
-
-    # reshape array to 4 channel image array H X W X 4
-    img_rgb = img1d.reshape(response.height, response.width, 3)
+    img = utils.get_image(client)
 
     cv.imshow("Image", img_rgb)
     cv.waitKey(0)
