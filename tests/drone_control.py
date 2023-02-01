@@ -96,8 +96,6 @@ async def run():
                 case 'p':
                     img = utils.get_image(client)
 
-                    print(img.shape)
-
                     # write to png 
                     cv.imshow("Image", img)
                     cv.waitKey(0)
