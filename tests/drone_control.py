@@ -20,16 +20,13 @@ import asyncio
 from mavsdk import System
 import airsim
 import cv2 as cv
-import pprint
-import Object_detection
-
 import utils
 
 
 _PORT: int = 14030
 
 
-async def run():
+async def run(loop: asyncio.AbstractEventLoop):
     drone: System = System(mavsdk_server_address="localhost")
     client = airsim.MultirotorClient()
     client.confirmConnection()
@@ -71,15 +68,7 @@ async def run():
     # To fly drone 20m above the ground plane
     flying_alt = absolute_altitude + 20.0
     # goto_location() takes Absolute MSL altitude
-    await drone.action.goto_location(lat, long, flying_alt, 0)
-    camera_name = "3"
-    image_type = airsim.ImageType.Scene
-    # set detection radius in [cm]
-    client.simSetDetectionFilterRadius(camera_name, image_type, 200 * 100) 
-    # add desired object name to detect in wild card/regex format
-    client.simAddDetectionFilterMeshName(camera_name, image_type, "Cylinder*") 
-
-    
+    await drone.action.goto_location(lat, long, flying_alt, 0)  
 
     while True:
         command: str = input("Give instructions: ").lower()
@@ -110,11 +99,11 @@ async def run():
                     cv.imshow("Image", img)
                     cv.waitKey(0)
                 case 'o':
-                    Object_detection.detect_object()
+                    utils.detect_object(client)
         
         await drone.action.goto_location(lat, long, flying_alt, 0)
     
 
 if __name__ == "__main__":
     loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
-    loop.run_until_complete(run())
+    loop.run_until_complete(run(loop))

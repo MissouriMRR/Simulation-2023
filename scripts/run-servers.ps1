@@ -6,7 +6,7 @@ function New-Powershell {
         $name,
         $command
     )
-    return Start-Process powershell -ArgumentList "-noexit", "-noprofile", "-command", "`$host.ui.RawUI.WindowTitle = '$name'; $command"
+    return Start-Process powershell -ArgumentList "-noexit", "-noprofile", "-command", "`$host.ui.RawUI.WindowTitle = '$name'; $command" -WindowStyle Minimized
 }
 
 # Get directory of this script and config file
