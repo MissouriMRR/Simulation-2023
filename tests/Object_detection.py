@@ -19,6 +19,7 @@ def detect_object():
     client.simAddDetectionFilterMeshName(camera_name, image_type, "Cylinder*") 
 
 
+
     while True:
         rawImage = client.simGetImage(camera_name, image_type)
         if not rawImage:
