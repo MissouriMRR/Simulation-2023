@@ -22,6 +22,8 @@ import airsim
 import os
 import numpy as np
 import cv2 as cv
+import pprint
+import Object_detection
 
 
 _PORT: int = 14030
@@ -30,7 +32,7 @@ _PORT: int = 14030
 async def run():
     drone: System = System(mavsdk_server_address="localhost")
     client = airsim.MultirotorClient()
-
+    client.confirmConnection()
     await drone.connect(system_address=f"udp://:{_PORT}")
 
     print("Waiting for drone to connect...")
@@ -70,12 +72,19 @@ async def run():
     flying_alt = absolute_altitude + 20.0
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(lat, long, flying_alt, 0)
+    camera_name = "3"
+    image_type = airsim.ImageType.Scene
+    # set detection radius in [cm]
+    client.simSetDetectionFilterRadius(camera_name, image_type, 200 * 100) 
+    # add desired object name to detect in wild card/regex format
+    client.simAddDetectionFilterMeshName(camera_name, image_type, "Cylinder*") 
+
     
 
     while True:
         command: str = input("Give instructions: ").lower()
         await asyncio.sleep(1)
-
+    
         if command == 'die':
             await drone.action.kill()
             return
@@ -110,7 +119,9 @@ async def run():
                     # write to png 
                     cv.imshow("Image", img_rgb)
                     cv.waitKey(0)
-                
+                case 'o':
+                    Object_detection.detect_object()
+        
         await drone.action.goto_location(lat, long, flying_alt, 0)
     
 
