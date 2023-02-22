@@ -1,4 +1,5 @@
-# just some useful functions to keep between files
+# A collecton of useful functions to keep between files
+
 import airsim as _as
 import numpy as _np
 import cv2 as _cv
@@ -19,7 +20,7 @@ def get_image(airsim_client: _as.MultirotorClient, image_id="down",
     return img1d.reshape(response.height, response.width, 3)
 
 
-def detect_object(client: _as.MultirotorClient):
+def detect_object(client: _as.MultirotorClient) -> None:
 
     # set camera name and image type to request images and detections
     camera_name = "down"

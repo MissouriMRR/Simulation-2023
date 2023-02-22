@@ -8,6 +8,8 @@ Controls:
 - l   = left/subtract longitude
 - u   = up/add altitude
 - d   = down/substract altitude
+- p   = take a picture
+- o   = start object detection
 - die = kill the connection to the drone
 
 You can enter multiple commands (excluding die) at once.

@@ -1,11 +1,14 @@
+# This test takes captures an image from the drone after takeoff.
+
 import airsim
 import asyncio
-from mavsdk import System
 import utils
-
 import cv2 as cv
+from mavsdk import System
+
 
 _PORT: int = 14030
+
 
 async def run():
     drone: System = System(mavsdk_server_address="localhost")
@@ -46,12 +49,11 @@ async def run():
 
     img = utils.get_image(client)
 
-    cv.imshow("Image", img_rgb)
+    cv.imshow("Image", img)
     cv.waitKey(0)
 
 
 if __name__ == "__main__":
     loop: asyncio.AbstractEventLoop = asyncio.new_event_loop()
     loop.run_until_complete(run())
-
     

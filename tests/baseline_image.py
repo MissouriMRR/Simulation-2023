@@ -1,5 +1,5 @@
-import os
-import numpy as np
+# This test just takes a picture and displays it
+
 import airsim
 import cv2 as cv
 import utils

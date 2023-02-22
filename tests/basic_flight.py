@@ -1,6 +1,6 @@
 '''
 This is a basic flight test to ensure you can connect to the drone
-and send it commands. It should fly up 20 and hover until connection 
+and send it commands. It should fly up 20m and hover until connection 
 to the drone is broken.
 '''
 
