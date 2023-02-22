@@ -26,9 +26,11 @@ if (-not(Test-Path -Path $configPath -PathType Leaf)) {
 # parse config file
 $config = Get-Content $configPath | ConvertFrom-Json
 
+# if port wasn't provided as an argument, then use the port from the config
 if ($null -eq $port) {
     $port = $config.drone_port
 }
+
 # format some config-related info, which will be used more than once
 $autorun = "$($config.px4_path)\autorun.bat"
 $drone_uri = "udp://:$port"
@@ -41,3 +43,5 @@ if (-not(Test-Path -Path $autorun -PathType Leaf)) {
 # run PX4 and the MavSDK server
 New-Powershell "PX4" "cd $($config.px4_path); .\autorun.bat"
 New-Powershell "MavSDK Server ($drone_uri)" "cd $($config.mavsdk_server_path); .\mavsdk_server_bin.exe $drone_uri" 
+
+Write-Output "Started MavSDK Server at $drone_uri and PX4"

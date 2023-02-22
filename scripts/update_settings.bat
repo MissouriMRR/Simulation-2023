@@ -4,3 +4,5 @@
 for %%i in ("%~dp0.") do set "folder=%%~fi"
 
 type %1 > %UserProfile%\Documents\AirSim\settings.json
+
+echo Settings updated!
