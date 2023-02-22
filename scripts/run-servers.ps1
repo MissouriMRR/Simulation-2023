@@ -1,5 +1,9 @@
 # This script runs PX4 and MavSDK at the same time
 
+param(
+    $port = $null
+)
+
 # Function that starts a new powershell instance with a given window name and command
 function New-Powershell {
     param (
@@ -22,9 +26,12 @@ if (-not(Test-Path -Path $configPath -PathType Leaf)) {
 # parse config file
 $config = Get-Content $configPath | ConvertFrom-Json
 
+if ($null -eq $port) {
+    $port = $config.drone_port
+}
 # format some config-related info, which will be used more than once
 $autorun = "$($config.px4_path)\autorun.bat"
-$drone_uri = "udp://:$($config.drone_port)"
+$drone_uri = "udp://:$port"
 
 # create the modifed run-console.bat in the PX4 folder if it's missing
 if (-not(Test-Path -Path $autorun -PathType Leaf)) {
