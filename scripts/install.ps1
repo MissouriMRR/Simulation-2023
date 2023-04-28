@@ -1,3 +1,5 @@
+# Note: this script is mostly untested
+
 Add-Type -AssemblyName System.Windows.Forms
 
 $px4_installer_name = "PX4.Windows.Cygwin.Toolchain.0.9.msi"

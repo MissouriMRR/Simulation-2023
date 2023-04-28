@@ -4,6 +4,7 @@ import airsim
 import cv2 as cv
 import utils
 
+
 if __name__ == "__main__":
     client = airsim.MultirotorClient()
     client.confirmConnection()
