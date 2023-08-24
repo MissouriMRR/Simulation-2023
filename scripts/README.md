@@ -6,7 +6,7 @@ Before doing anything, make sure you have everything installed as listed in the 
 
 ## `setup.bat`
 
-This script sets up your environment so other scripts may run correctly. Most importantly, it will create a file called `server-config.json`, which contains important data for running `run-servers.ps1`, which is probably the most convinient command in the folder.
+This script sets up your environment so other scripts may run correctly. Most importantly, it will create a file called `server-config.json`, which contains important data for running `run-servers.ps1`, which is probably the most useful command in the folder.
 
 This is what `server-config.json` may look like.
 ```json
@@ -28,12 +28,12 @@ Updates your AirSim settings for you. Create a file for your AirSim settings JSO
 **Example:**
 
 ```ps1
-.\update_settings.bat my_settings.json
+.\update_settings.bat .\my_settings.json
 ```
 
 ## `run-servers.ps1`
 
-Runs PX4 and creates a MavSDK server with one command based on your `server-config.json`. This command is meant to streamline testing by reducing the tedium spawned by manually starting and restarting PX4 and MavSDK servers. After each restart, you should close the PowerShell instances running previous PX4 and MavSDK instances.
+Runs PX4 and creates a MavSDK server with one command based on your `server-config.json`. This command is meant to streamline testing by reducing the tedium spawned by manually starting and restarting PX4 and MavSDK servers (which may happen a lot). After each simulation restart, you should close the PowerShell instances running previous PX4 and MavSDK instances.
 
 When testing, the recommended order of launching/starting things is:
 
