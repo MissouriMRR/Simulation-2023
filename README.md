@@ -17,6 +17,7 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
     - download the 2022 version if possible
 4. [Unreal Engine 4.27.2](https://www.unrealengine.com/en-US/?utm_source=GoogleSearch&utm_medium=Performance&utm_campaign=%7Bcampaigname%7D&utm_id=17086214833&sub_campaign=&utm_content=&utm_term=unreal%20engine)
     - if you already have the Epic Games Launcher, you can download Unreal Engine from the 'Unreal Engine' tab
+    - make sure to run Unreal Engine from the Epic Games Launcher before moving to the next step
 5. [Microsoft AirSim](https://github.com/Microsoft/AirSim)
     - Clone repo (`git clone https://github.com/Microsoft/AirSim`) to desired location
     - open `x64 Native Tools Command Prompt for VS 20XX` (just search 'x64 Native Tools' in the Windows search bar and the correct program should appear)
