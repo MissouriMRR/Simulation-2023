@@ -45,7 +45,7 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
 
 ## Running Python Code
 
-Make sure to complete all [instalation and setup](#installation-and-environment-setup) steps before attempting to run code.
+Make sure to complete all [installation and setup](#installation-and-environment-setup) steps before attempting to run code.
 
 1. Open your AirSim Unreal Engine project and run `poetry shell` from this repository's root
     - This will activate a virtual environment outfitted with the necessary dependencies need to interact with the simulation with Python.
