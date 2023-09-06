@@ -10,27 +10,29 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
 
 ## Installation and Environment Setup
 
-1. [git](https://git-scm.com)
-2. [poetry (python)](https://python-poetry.org)
-3. [Visual Studio](https://visualstudio.microsoft.com)
+Follow these instructions to setup your environment (Windows):
+
+1. install [git](https://git-scm.com)
+2. install [poetry (python)](https://python-poetry.org)
+3. install [Visual Studio](https://visualstudio.microsoft.com)
     - make sure to select the `C++ Development Pack` and check `Windows SDK 10`. This is required for the next steps
     - download the 2022 version if possible
-4. [Unreal Engine 4.27.2](https://www.unrealengine.com/en-US/?utm_source=GoogleSearch&utm_medium=Performance&utm_campaign=%7Bcampaigname%7D&utm_id=17086214833&sub_campaign=&utm_content=&utm_term=unreal%20engine)
+4. install [Unreal Engine 4.27.2](https://www.unrealengine.com/en-US/?utm_source=GoogleSearch&utm_medium=Performance&utm_campaign=%7Bcampaigname%7D&utm_id=17086214833&sub_campaign=&utm_content=&utm_term=unreal%20engine)
     - if you already have the Epic Games Launcher, you can download Unreal Engine from the 'Unreal Engine' tab
-    - make sure to run Unreal Engine from the Epic Games Launcher before moving to the next step
-5. [Microsoft AirSim](https://github.com/Microsoft/AirSim)
+    - **make sure to run Unreal Engine from the Epic Games Launcher before moving to the next step**
+5. install [Microsoft AirSim](https://github.com/Microsoft/AirSim)
     - Clone repo (`git clone https://github.com/Microsoft/AirSim`) to desired location
     - open `x64 Native Tools Command Prompt for VS 20XX` (just search 'x64 Native Tools' in the Windows search bar and the correct program should appear)
     - navigate to where you installed AirSim using `cd insert/AirSim/path/here` in `x64 Native Tools Command Prompt for VS 20XX` and run `.\build.cmd`
-6. [PX4](https://github.com/PX4/PX4-windows-toolchain/releases/download/v0.9/PX4.Windows.Cygwin.Toolchain.0.9.msi)
+6. install [PX4](https://github.com/PX4/PX4-windows-toolchain/releases/download/v0.9/PX4.Windows.Cygwin.Toolchain.0.9.msi)
     - run the installer (the `.msi` file) after downloading
-7. [MavSDK](https://github.com/mavlink/MAVSDK/releases/download/v1.4.16/mavsdk-windows-x64-release.zip)
+7. install [MavSDK](https://github.com/mavlink/MAVSDK/releases/download/v1.4.16/mavsdk-windows-x64-release.zip)
     - download the `.zip` from the above link and unzip it wherever you please
     - keep track of where you unzip it, since you'll need it for a future step
-8. Clone this repository: `git clone https://github.com/MissouriMRR/Simulation-2023.git`
-9. In the repository root, run the command `poetry install`
-10. Navigate to `\scripts\` and run `.\setup.bat`
-    - open the resulting file `\scripts\server-config.json` and...
+8. Open a terminal and clone this repository: `git clone https://github.com/MissouriMRR/Simulation-2023.git`
+9. Navigate in your terminal to the repository root and run the command `poetry install`
+10. Navigate to `\scripts\` in a command prompt or PowerShell instance and run `.\setup.bat`
+    - This will create a file called `\scripts\server-config.json`. Open this file and...
         - replace `mavsdk_server_path` with the absolute path to the `\bin` directory where you unzipped MavSDK
         - replace `px4_path` with the absolute path to your PX4 folder
         - replace `drone_port` with the necessary drone port, if necessary (click here for more info)
@@ -43,20 +45,23 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
         }
         ```
 
+AirSim comes with a test project called Blocks. It is located in your AirSim folder at `\AirSim\Unreal\Environments\Blocks\Blocks.uproject`
+
 ## Running Python Code
 
 Make sure to complete all [installation and setup](#installation-and-environment-setup) steps before attempting to run code.
 
-1. Open your AirSim Unreal Engine project and run `poetry shell` from this repository's root
+1. Open your AirSim Unreal Engine project
+2. Open a terminal and rnavigate to the root of your cloned repository. Then, run `poetry shell`
     - This will activate a virtual environment outfitted with the necessary dependencies need to interact with the simulation with Python.
-2. Start the Unreal Engine simulation using the editor's `Play` button
-3. Start the PX4 and MavSDK servers by running `\scripts\servers.ps1`
-4. Run your code!
+3. Start the Unreal Engine simulation using the editor's `Play` button
+4. Start the PX4 and MavSDK servers by running `\scripts\servers.ps1`
+5. Run your code!
 
 Whenever you want to rerun code, you must
 - stop the Unreal Simulation
 - close the PX4 and MavSDK PowerShell instances
-- repeat steps 2-4 in the above guide
+- repeat steps 3-5 in the above guide
 
 When finished running code, run `exit` to exit your Poetry virtual environment.
 
@@ -102,7 +107,7 @@ To check if the incorrect port is selected:
 
 To acquire the correct port:
 1. run `\scripts\run-servers.ps1` if you haven't already
-2. run your Unreal Engine simulation and ensure PX4 connects to it
+2. start your Unreal Engine simulation and ensure PX4 connects to it
 3. locate the *final occurrance* of a message similar to `mode: Onboard, data rate: 4000 B/s on udp port 14280 remote port 14030` in PX4's console output
     - the listed *remote port* is the one you need
 4. replace the value of `drone_port` in your `\scripts\server-config.json` with the remote port you found
