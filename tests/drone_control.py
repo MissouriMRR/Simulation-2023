@@ -25,7 +25,7 @@ import cv2 as cv
 import utils
 
 
-_PORT: int = 14030
+_PORT: int = utils.get_config_port()
 
 
 async def run(loop: asyncio.AbstractEventLoop):

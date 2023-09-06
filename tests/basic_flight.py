@@ -6,9 +6,10 @@ to the drone is broken.
 
 import asyncio
 from mavsdk import System
+import utils
 
 
-_PORT: int = 14030
+_PORT: int = utils.get_config_port()
 
 
 async def run():

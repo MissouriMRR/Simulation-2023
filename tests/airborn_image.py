@@ -7,7 +7,7 @@ import cv2 as cv
 from mavsdk import System
 
 
-_PORT: int = 14030
+_PORT: int = utils.get_config_port()
 
 
 async def run():
