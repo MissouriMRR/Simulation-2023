@@ -7,7 +7,8 @@ import json
 from pathlib import Path
 from nptyping import NDArray, Shape, UInt
 
-
+# calculates the default config path relative to this file
+# NOTE: may have to change if this file is moved!
 DEFAULT_CONFIG_PATH: str = str(Path(__file__).parents[1].joinpath(r".\scripts\server-config.json"))
 
 
@@ -61,7 +62,7 @@ def detect_object(client: _as.MultirotorClient) -> None:
         elif _cv.waitKey(1) & 0xFF == ord('a'):
             client.simAddDetectionFilterMeshName(camera_name, image_type, "Cylinder*")
     _cv.destroyAllWindows() 
-
+    
 
 def get_config_port(config_path: str = DEFAULT_CONFIG_PATH):
     if not Path(config_path).exists():

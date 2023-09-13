@@ -10,11 +10,12 @@ Controls:
 - d   = down/substract altitude
 - p   = take a picture
 - o   = start object detection
+        press q (with the image display focused) to quit object detection
 - die = kill the connection to the drone
 
 You can enter multiple commands (excluding die) at once.
 For example, the command "ffffuuuuu" will execute the forward command 4 times
-and he up command 5 times.
+and the up command 5 times.
 
 '''
 
