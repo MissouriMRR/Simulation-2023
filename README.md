@@ -7,7 +7,7 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
     - [Debugging](#debugging)
         - [PX4 Won't Connect](#px4-wont-connect)
         - [MavSDK Server Won't Connect to PX4](#mavsdk-server-wont-connect-to-px4)
-        - [No module named 'encodings' when starting PX4 (Windows)](#No-module-named-'encodings'-when-starting-PX4-(Windows))
+        - [No module named 'encodings' when starting PX4 (Windows)](#no-module-named-encodings-when-starting-px4-windows)
 
 ## Installation and Environment Setup
 
