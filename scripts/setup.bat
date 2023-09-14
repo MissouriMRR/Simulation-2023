@@ -7,6 +7,7 @@ REM this file is to ensure everyone easily has the correct server-config.json fo
 for %%i in ("%~dp0.") do set "folder=%%~fi"
 
 type %folder%\templates\server-config.lock.json > %folder%\server-config.json
+type %folder%\templates\airsim_settings.lock.json > %folder%\airsim-settings.json
 type %folder%\templates\airsim_settings.lock.json > %UserProfile%\Documents\AirSim\settings.json
 
 echo Setup complete
