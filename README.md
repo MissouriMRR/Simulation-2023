@@ -7,6 +7,7 @@ Missouri S&amp;T Multirotor Design Team's simulation environments for our 2023 c
     - [Debugging](#debugging)
         - [PX4 Won't Connect](#px4-wont-connect)
         - [MavSDK Server Won't Connect to PX4](#mavsdk-server-wont-connect-to-px4)
+        - [No module named 'encodings' when starting PX4 (Windows)](#no-module-named-encodings-when-starting-px4-windows)
 
 ## Installation and Environment Setup
 
@@ -111,6 +112,18 @@ To fix this:
     - if you do not have `\scripts\server-config.json`, then you must first run `\scripts\setup.bat`
 
 Now, you should be all good! Run your code as described [above](#running-python-code).
+
+#### No module named 'encodings' when starting PX4 (Windows)
+
+This error might be caused by window's enviroment variables interfering with PX4's virtual python enviroment. 
+
+To fix this:
+1. Search 'enviroment variables' in the window's search.
+2. Delete PYTHONPATH and PYTHONHOME
+
+Now, it should work! 
+
+
 
 
 
