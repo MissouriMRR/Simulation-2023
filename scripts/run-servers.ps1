@@ -39,8 +39,12 @@ if (-not(Test-Path -Path "$autorun" -PathType Leaf)) {
     Get-Content "$PSScriptRoot\templates\autorun.txt" | Out-File -FilePath "$autorun" -Encoding oem
 }
 
+# TODO: make work (ues TrimEnd('\') to prevent trailing slash in path from escaping characters)
 # run PX4 and the MavSDK server
-New-Powershell "PX4" "cd $($config.px4_path); .\autorun.bat"
-New-Powershell "MavSDK Server ($drone_uri)" "cd $($config.mavsdk_server_path); .\mavsdk_server_bin.exe $drone_uri" 
+Write-Output "cd `"$($config.px4_path)`"; .\autorun.bat"
+Write-Output "cd `"$($config.mavsdk_server_path)`"; .\mavsdk_server_bin.exe $drone_uri"
+
+New-Powershell "PX4" "cd `"$($config.px4_path)`" ; .\autorun.bat"
+New-Powershell "MavSDK Server ($drone_uri)" "cd `"$($config.mavsdk_server_path)`"; .\mavsdk_server_bin.exe $drone_uri"
 
 Write-Output "Started MavSDK Server at $drone_uri and PX4"

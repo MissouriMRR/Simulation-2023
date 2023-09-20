@@ -1,5 +1,5 @@
 {
     "drone_port": 14030,
-    "mavsdk_server_path": "C:\\Example\\MavSDK\\bin\\",
-    "px4_path": "C:\\PX4\\"
+    "mavsdk_server_path": "C:\\Example\\MavSDK\\bin",
+    "px4_path": "C:\\PX4"
 }
