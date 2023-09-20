@@ -14,17 +14,16 @@ function New-Powershell {
 }
 
 # Get directory of this script and config file
-$scriptPath = Split-Path -parent $MyInvocation.MyCommand.Definition
-$configPath = "$scriptPath\server-config.json"
+$configPath = "$PSScriptRoot\server-config.json"
 
 # check if config file is present
-if (-not(Test-Path -Path $configPath -PathType Leaf)) {
+if (-not(Test-Path -Path "$configPath" -PathType Leaf)) {
     Write-Output "config file not present; run setup.bat and fill out the information in the created json file"
     break
 }
 
 # parse config file
-$config = Get-Content $configPath | ConvertFrom-Json
+$config = Get-Content "$configPath" | ConvertFrom-Json
 
 # if port wasn't provided as an argument, then use the port from the config
 if ($null -eq $port) {
@@ -36,8 +35,8 @@ $autorun = "$($config.px4_path)\autorun.bat"
 $drone_uri = "udp://:$port"
 
 # create the modifed run-console.bat in the PX4 folder if it's missing
-if (-not(Test-Path -Path $autorun -PathType Leaf)) {
-    Get-Content $scriptPath\templates\autorun.txt | Out-File -FilePath $autorun -Encoding oem
+if (-not(Test-Path -Path "$autorun" -PathType Leaf)) {
+    Get-Content "$PSScriptRoot\templates\autorun.txt" | Out-File -FilePath "$autorun" -Encoding oem
 }
 
 # run PX4 and the MavSDK server
