@@ -5,12 +5,14 @@ param(
 )
 
 # Function that starts a new powershell instance with a given window name and command
-function New-Powershell {
+function New-Server {
     param (
         $name,
+        $workingdir,
         $command
     )
-    return Start-Process powershell -ArgumentList "-noexit", "-noprofile", "-command", "`$host.ui.RawUI.WindowTitle = '$name'; $command" -WindowStyle Minimized
+    $workingdir = $workingdir -replace ' ', '` '
+    return Start-Process powershell -ArgumentList "-noexit", "-noprofile", "-command", "`$host.ui.RawUI.WindowTitle = '$name'; cd $workingdir; $command" -WindowStyle Minimized
 }
 
 # Get directory of this script and config file
@@ -44,7 +46,7 @@ if (-not(Test-Path -Path "$autorun" -PathType Leaf)) {
 Write-Output "cd `"$($config.px4_path)`"; .\autorun.bat"
 Write-Output "cd `"$($config.mavsdk_server_path)`"; .\mavsdk_server_bin.exe $drone_uri"
 
-New-Powershell "PX4" "cd `"$($config.px4_path)`" ; .\autorun.bat"
-New-Powershell "MavSDK Server ($drone_uri)" "cd `"$($config.mavsdk_server_path)`"; .\mavsdk_server_bin.exe $drone_uri"
+New-Server "PX4" $config.px4_path ".\autorun.bat"
+New-Server "MavSDK Server ($drone_uri)" $config.mavsdk_server_path ".\mavsdk_server_bin.exe $drone_uri"
 
 Write-Output "Started MavSDK Server at $drone_uri and PX4"
