@@ -4,7 +4,7 @@ param(
     $port = $null
 )
 
-# Function that starts a new powershell instance with a given window name and command
+# Function that starts a new powershell instance with a given window name, directory, and command
 function New-Server {
     param (
         $name,
@@ -21,7 +21,7 @@ $configPath = "$PSScriptRoot\server-config.json"
 # check if config file is present
 if (-not(Test-Path -Path "$configPath" -PathType Leaf)) {
     Write-Output "config file not present; run setup.bat and fill out the information in the created json file"
-    break
+    exit
 }
 
 # parse config file
@@ -41,12 +41,7 @@ if (-not(Test-Path -Path "$autorun" -PathType Leaf)) {
     Get-Content "$PSScriptRoot\templates\autorun.txt" | Out-File -FilePath "$autorun" -Encoding oem
 }
 
-# TODO: make work (ues TrimEnd('\') to prevent trailing slash in path from escaping characters)
-# run PX4 and the MavSDK server
-Write-Output "cd `"$($config.px4_path)`"; .\autorun.bat"
-Write-Output "cd `"$($config.mavsdk_server_path)`"; .\mavsdk_server_bin.exe $drone_uri"
-
-New-Server "PX4" $config.px4_path ".\autorun.bat"
-New-Server "MavSDK Server ($drone_uri)" $config.mavsdk_server_path ".\mavsdk_server_bin.exe $drone_uri"
+New-Server "PX4" $config.px4_path.TrimEnd('\') ".\autorun.bat"
+New-Server "MavSDK Server ($drone_uri)" $config.mavsdk_server_path.TrimEnd('\') ".\mavsdk_server_bin.exe $drone_uri"
 
 Write-Output "Started MavSDK Server at $drone_uri and PX4"

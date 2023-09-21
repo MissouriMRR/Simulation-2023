@@ -6,6 +6,7 @@ param(
 $docs = [Environment]::GetFolderPath('Personal')
 $settings = "$PSScriptRoot\airsim-settings.json"
 
+# check if a custom settings file was provided
 if ($PSBoundParameters.ContainsKey('file')) {
     $settings = "$file"
 }
