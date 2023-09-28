@@ -8,9 +8,8 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.10"
 pip = "^22.0.4"
-airsim = "^1.8.1"
-mavsdk = "^1.4.1"
 numpy = "^1.21.2"
+mavsdk = "^1.4.1"
 opencv-python = "^4.5.3.56"
 pytesseract = "^0.3.9"
 lxml = "^4.8.0"
@@ -22,6 +21,7 @@ matplotlib = "^3.5.1"
 utm = "^0.7.0"
 Shapely = "^1.8.1"
 nptyping = "^2.3.1"
+airsim = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
