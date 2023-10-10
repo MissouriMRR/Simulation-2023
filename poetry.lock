@@ -175,13 +175,6 @@ python-versions = ">=3.7"
 [package.extras]
 protobuf = ["grpcio-tools (>=1.51.1)"]
 
-[[package]]
-name = "scipy"
-version = "1.9.3"
-description = "Fundamental algorithms for scientific computing in Python"
-category = "main"
-optional = false
-python-versions = ">=3.8"
 
 [[package]]
 name = "isort"
