@@ -22,7 +22,7 @@ matplotlib = "^3.5.1"
 utm = "^0.7.0"
 Shapely = "^1.8.1"
 nptyping = "^2.3.1"
-airsim = "^1.8.1"
+airsim = {git = "https://github.com/heitmeih/AirSim-fixed-pyinstall", rev = "main", subdirectory = "PythonClient"}
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
