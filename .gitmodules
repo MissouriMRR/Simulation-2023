@@ -1,3 +1,4 @@
 [submodule "SUAS-2023/SUAS-2023"]
 	path = SUAS-2023/SUAS-2023
 	url = https://github.com/MissouriMRR/SUAS-2023
+	branch=sim-rewrite
