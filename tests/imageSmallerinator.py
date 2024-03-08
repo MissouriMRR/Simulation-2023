@@ -7,10 +7,10 @@
 
 
 
-##########PROGRAMMED BY:##########
-##########KEAN JONES##########
-#*Explosion*#
-#*Fireworks, etc.*#
+##########  PROGRAMMED BY:   ##########
+##########  KEAN JONES  ##########
+#  *Explosion*  #
+#  *Fireworks, etc.*  #
 
 from PIL import Image
 import numpy as np
@@ -21,7 +21,9 @@ ODLCdetection: TypeAlias = dict[str,str|int|float]
 Picture: TypeAlias = dict[str,int|ODLCdetection]
 
 
-def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg') -> list[list[list[float]]]:
+def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg', saveImages: bool = False) -> list[list[list[float]]]:
+    if saveImages:
+        saveSmallerImages(numRows, numColumns, imgPath)
     img: Image = Image.open(imgPath)
     width, height = img.size  #both are ints
     baseColumnWidth: float = width / (numColumns + 1)
@@ -44,20 +46,28 @@ def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'te
             c += 1  
         r += 1
         c = 0
+    return dimentions
+
+
+#####  DO NOT CALL THIS FUNCTION    ########
+def saveSmallerImages(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg'):
+    
+    img: Image = Image.open(imgPath)
+    dimentions: list[list[list[float]]] = imageSmallerinator(numRows, numColumns, imgPath)
     i: int = 1
     for row in dimentions:
         for column in row:
             crop: Image = img.crop(column)
-            crop.save(f'cropped{i}.jpg')
+            crop.save(f'_img{i}.jpg')
             i += 1
 
 
-    return dimentions
 
 
-
-def boxInPhoto(bigImage = 'testBalls.jpg',rows = 5, columns = 5,inputFile = 'input.json', outputFile = 'output.json'):
+def boxInPhoto(bigImage = 'testBalls.jpg',rows = 5, columns = 5,inputFile = 'input.json', outputFile = 'output.json', saveImages: bool = False):
     picturesData: list = imageSmallerinator(rows,columns, bigImage)
+    if saveImages:
+        saveSmallerImages(rows, columns, bigImage)
 
     with open(inputFile, 'r') as f:
         input: dict[str,list[Picture]] = json.load(f)
@@ -115,5 +125,6 @@ def boxInPhoto(bigImage = 'testBalls.jpg',rows = 5, columns = 5,inputFile = 'inp
 
     
 
-#boxInPhoto(rows = 5, columns = 5)
+#boxInPhoto(rows = 5, columns = 5,saveImages = True)
+
 #print(imageSmallerinator())
