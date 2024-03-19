@@ -21,9 +21,7 @@ ODLCdetection: TypeAlias = dict[str,str|int|float]
 Picture: TypeAlias = dict[str,int|ODLCdetection]
 
 
-def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg', saveImages: bool = False) -> list[list[list[float]]]:
-    if saveImages:
-        saveSmallerImages(numRows, numColumns, imgPath)
+def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg') -> list[list[list[float]]]:
     img: Image = Image.open(imgPath)
     width, height = img.size  #both are ints
     baseColumnWidth: float = width / (numColumns + 1)
@@ -49,7 +47,6 @@ def imageSmallerinator(numRows: int = 5, numColumns: int = 5, imgPath: str = 'te
     return dimentions
 
 
-#####  DO NOT CALL THIS FUNCTION    ########
 def saveSmallerImages(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg'):
     
     img: Image = Image.open(imgPath)
@@ -61,7 +58,19 @@ def saveSmallerImages(numRows: int = 5, numColumns: int = 5, imgPath: str = 'tes
             crop.save(f'_img{i}.jpg')
             i += 1
 
-
+def npSmallerImages(numRows: int = 5, numColumns: int = 5, imgPath: str = 'testBalls.jpg'):
+    img: Image = Image.open(imgPath)
+    dimentions: list[list[list[float]]] = imageSmallerinator(numRows, numColumns, imgPath)
+    outputArray: list[list[list[int]]] = []
+    i: int = 1
+    for row in dimentions:
+        for column in row:
+            crop: Image = img.crop(column)
+            printable = np.asarray(crop)
+            outputArray.append(printable)
+            i += 1
+    return outputArray
+print(npSmallerImages())
 
 
 def boxInPhoto(bigImage = 'testBalls.jpg',rows = 5, columns = 5,inputFile = 'input.json', outputFile = 'output.json', saveImages: bool = False):
@@ -127,4 +136,4 @@ def boxInPhoto(bigImage = 'testBalls.jpg',rows = 5, columns = 5,inputFile = 'inp
 
 #boxInPhoto(rows = 5, columns = 5,saveImages = True)
 
-#print(imageSmallerinator())
+# print(imageSmallerinator())
