@@ -42,7 +42,18 @@ def next_pos(i, j, dir, num_horizontal_squares):
             x = TOP_RIGHT[0]-(square_edge_length/2)-num_horizontal_squares*square_edge_length + (i+1)*square_edge_length
     return (i,j)
 
-        
+async def move_to_point(drone, pos, alt, absolute_alt, meters_to_degrees):
+    degrees_to_meters = 1/meters_to_degrees
+    await drone.action.goto_location(pos[1], pos[0], alt + absolute_alt, 0)
+    location_reached = False
+    while not location_reached:
+        async for position in drone.telemetry.position():
+            if (math.sqrt(math.pow(alt-position.relative_altitude_m, 2)+math.pow((pos[1]-position.latitude_deg)*degrees_to_meters, 2)+math.pow((pos[0]-position.longitude_deg)*degrees_to_meters, 2)) < 0.5):
+                location_reached = True
+                break
+
+        await asyncio.sleep(1)
+    return
 
 
 
@@ -103,11 +114,13 @@ async def run(loop: asyncio.AbstractEventLoop):
         for i in range(num_horizontal_squares - 1):
             take_picture()
             pos = next_pos(i, j, dir, absolute_altitude + ALTITUDE, num_horizontal_squares)
-            await drone.action.goto_location(pos[1], pos[0], absolute_altitude + ALTITUDE, 0)
+            await move_to_point(drone, pos, ALTITUDE, absolute_altitude, meters_to_degrees)
+            await asyncio.sleep(1)
         take_picture()
         pos = await next_pos(i, j, dir, num_horizontal_squares)
-        await drone.action.goto_location(pos[1], pos[0], absolute_altitude + ALTITUDE, 0)
+        await move_to_point(drone, pos, ALTITUDE, absolute_altitude, meters_to_degrees)
         dir *= -1
+        await asyncio.sleep(1)
     take_picture()
     print("Update textures here")
 
